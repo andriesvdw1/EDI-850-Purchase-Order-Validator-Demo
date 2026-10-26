@@ -9,7 +9,7 @@
     <h1>EDI 850 Purchase Order Validator Demo</h1>
     <form>
         <h2>Validate Purchase Order Document:</h2>
-        <label for="docToValidate">Paste the content to validate it:</label>
+        <label for="docToValidate">Paste the content to validate document:</label>
         <textarea id ="docToValidate"></textarea>
         <button type="button" onclick="docValidate()">Validate</button>
         <button type="reset">Reset</button>
@@ -67,7 +67,13 @@
     <script>
         function docValidate(){
             alert("Validate button clicked!")
-            
+            let docToCheck = document.getElementById("docToValidate")
+            if(docToCheck){
+                console.log(docToCheck.value)
+            }
+            else{
+                alert("element docToCheck is not available")
+            }
         }
     </script>
 </body>
