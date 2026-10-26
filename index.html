@@ -11,7 +11,7 @@
         <h2>Validate Purchase Order Document:</h2>
         <label for="docToValidate">Paste the content to validate it:</label>
         <textarea id ="docToValidate"></textarea>
-        <button type="button">Validate</button>
+        <button type="button" onclick="docValidate">Validate</button>
         <button type="reset">Reset</button>
     </form>
     <h3>Document validation checks:</h3>
@@ -26,20 +26,46 @@
     <span id="850DocCheck">BEG with at least one P01 line item present?</span>
     </div>
     <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 18pt;
+            background-color: darkseagreen;
+            border-radius: 18px;
+            padding: 15px;
+        }
         h1{
             font-family: 'Courier New', Courier, monospace;
             font-size: 22pt;
+            line-height: 0%;
         }
         h3, h2{
             font-family: 'Courier New', Courier, monospace;
             font-size: 20pt;
+            line-height: 0%;
         }
         #visualChecks {
             display: flex;
             flex-direction: column;
             font-family: 'Courier New', Courier, monospace;
             font-size: 18pt;
+            background-color: lightseagreen;
+            border-radius: 18px;
+            padding: 15px;
+            
+        }
+        button{
+             font-family: 'Courier New', Courier, monospace;
+            font-size: 16pt;
+            background-color: lightseagreen;
+            border-radius: 18px;
+            width: 200px;
         }
     </style>
+    <script>
+        
+    </script>
 </body>
 </html>
