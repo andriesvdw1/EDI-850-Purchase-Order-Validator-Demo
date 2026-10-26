@@ -16,8 +16,8 @@
     </form>
     <h3>Document validation checks:</h3>
     <div id ="visualChecks">
-    <span id="docHasContent">Document has content?</span>
-    <span id="docStartISA">Document starts with ISA?</span>
+    <span id="docHasContent">Document has content?<span id="docHasContentSpan"></span></span>
+    <span id="docStartISA">Document starts with ISA?<span id="docHasISA"></span></span>
     <span id="segmentISALength">ISA segment length?</span>
     <span id="requiredSegmentTypes">Document has correct segment types as expected?</span>
     <span id="segmentInOrder">ISA -> IEA -> GS ->GE ST-> SE?</span>
@@ -70,6 +70,23 @@
             let docToCheck = document.getElementById("docToValidate")
             if(docToCheck){
                 console.log(docToCheck.value)
+                console.log(docToCheck.value.length)
+                //Document has content?
+                if(docToCheck.value.length > 0){
+                    document.getElementById("docHasContentSpan").textContent ="CHECK";
+                    // document starts with ISA characters
+                    if(docToCheck.value.substring(0,3) === "ISA"){
+                        console.log("Starts with ISA")
+                        document.getElementById("docHasISA").textContent ="CHECK";
+                    }
+                    else{
+                        console.log("Does not start with ISA!")
+                        document.getElementById("docHasISA").textContent ="FAILED";
+                    }
+                }
+                else{
+                     document.getElementById("docHasContentSpan").textContent ="FAILED";
+                }
             }
             else{
                 alert("element docToCheck is not available")
