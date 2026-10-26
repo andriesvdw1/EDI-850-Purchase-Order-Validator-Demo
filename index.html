@@ -12,6 +12,17 @@
         <label for="docToValidate">Paste the content to validate it:</label>
         <textarea id ="docToValidate"></textarea>
         <button type="button">Validate</button>
+        <button type="reset">Reset</button>
     </form>
+    <h3>Document validation checks:</h3>
+    <span id="docHasContent">Document has content?</span>
+    <span id="docStartISA">Document starts with ISA?</span>
+    <span id="segmentISALength">ISA segment length?</span>
+    <span id="requiredSegmentTypes">Document has correct segment types as expected?</span>
+    <span id="segmentInOrder">ISA -> IEA -> GS ->GE ST-> SE?</span>
+    <span id="validateControlNumberPairs">Control number pairs match?</span>
+    <span id="segmentGroupCounts">Segment group counts match?</span>
+    <span id="850DocCheck">BEG with at least one P01 line item present?</span>
+
 </body>
 </html>
