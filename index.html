@@ -75,6 +75,23 @@
                     // document starts with ISA characters
                     if(docToCheck.value.substring(0,3) === "ISA"){
                         document.getElementById("docHasISA").textContent ="CHECK";
+                        // ISA segment length = 160 characters?
+                        // Determine ISA length
+                        let contentText = docToCheck.value
+                        if(contentText){
+                            let foundTilde = contentText.indexOf('~');
+                            console.log(foundTilde);
+                            let prefix = contentText.substring(0,foundTilde);
+                            let starCount = prefix.split("*").length - 1;
+                            console.log(prefix);
+                            console.log("stars:");
+                            console.log(starCount) 
+                            let finalISACount = foundTilde - starCount;
+                            console.log("Final ISA Count:")
+                            console.log(finalISACount)
+                        } else {
+                            console.log("contextText does not exist!")
+                        }
                     }
                     else{
                         document.getElementById("docHasISA").textContent ="FAILED";
