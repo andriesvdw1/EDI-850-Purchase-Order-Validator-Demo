@@ -76,11 +76,9 @@
                     document.getElementById("docHasContentSpan").textContent ="CHECK";
                     // document starts with ISA characters
                     if(docToCheck.value.substring(0,3) === "ISA"){
-                        console.log("Starts with ISA")
                         document.getElementById("docHasISA").textContent ="CHECK";
                     }
                     else{
-                        console.log("Does not start with ISA!")
                         document.getElementById("docHasISA").textContent ="FAILED";
                     }
                 }
