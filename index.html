@@ -11,7 +11,7 @@
         <h2>Validate Purchase Order Document:</h2>
         <label for="docToValidate">Paste the content to validate it:</label>
         <textarea id ="docToValidate"></textarea>
-        <button type="button" onclick="docValidate">Validate</button>
+        <button type="button" onclick="docValidate()">Validate</button>
         <button type="reset">Reset</button>
     </form>
     <h3>Document validation checks:</h3>
@@ -65,7 +65,10 @@
         }
     </style>
     <script>
-        
+        function docValidate(){
+            alert("Validate button clicked!")
+            
+        }
     </script>
 </body>
 </html>
