@@ -18,11 +18,11 @@
     </form>
     <h3>Document validation checks:</h3>
     <div id="visualChecks">
-        <span id="docHasContent">Document has content?<span class="boldSpan" id="docHasContentSpan"></span></span>
-        <span id="docStartISA">Document starts with ISA?<span class="boldSpan" id="docHasISA"></span></span>
+        <span id="docHasContent">Document has content?</span><span class="boldSpan" id="docHasContentSpan"></span>
+        <span id="docStartISA">Document starts with ISA?</span><span class="boldSpan" id="docHasISA"></span>
         <span id="requiredSegmentTypes">Document has correct segment types as expected:</span>
-        <span id="segmentInOrder">ISA -> IEA -> GS ->GE ST-> SE?</span><span class="boldSpan" id="docHasSegmentTypes"></span></span>
-        <span id="850DocCheck">BEG with at least one P01 line item present?<span class="boldSpan" id="docHasBEGPO1"></span></span>
+        <span id="segmentInOrder">ISA -> IEA -> GS ->GE ST-> SE?</span><span class="boldSpan" id="docHasSegmentTypes"></span>
+        <span id="850DocCheck">BEG with at least one P01 line item present?</span><span class="boldSpan" id="docHasBEGPO1"></span>
         <span id="validateControlNumberPairs">Control number pairs match? N/A in demo</span>
         <span id="segmentISALength">ISA segment length? N/A in demo</span>                
         <span id="segmentGroupCounts">Segment group counts match?N/A in demo</span>
@@ -115,7 +115,7 @@
     }
 
         function docSegmentCheck(docToCheck){
-            let segmentsRequired = ["ISA", "IEA", "GS", "GE", "ST", "SE"]
+            let segmentsRequired = ["ISA*", "IEA*", "GS*", "GE*", "ST*", "SE*"]
             let segmentsFound = [0, 0, 0, 0, 0, 0]
             let segmentsValid = true;
             for(let i = 0; i<=segmentsRequired.length - 1; i++)
