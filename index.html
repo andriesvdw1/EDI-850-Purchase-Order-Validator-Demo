@@ -23,6 +23,7 @@
         <span id="requiredSegmentTypes">Document has correct segment types as expected:</span>
         <span id="segmentInOrder">ISA -> IEA -> GS ->GE ST-> SE?</span><span class="boldSpan" id="docHasSegmentTypes"></span>
         <span id="850DocCheck">BEG with at least one P01 line item present?</span><span class="boldSpan" id="docHasBEGPO1"></span>
+        <span>Document Status: </span><span id="FinalStatusDocumentSpan"></span>
         <span id="validateControlNumberPairs">Control number pairs match? N/A in demo</span>
         <span id="segmentISALength">ISA segment length? N/A in demo</span>                
         <span id="segmentGroupCounts">Segment group counts match?N/A in demo</span>
@@ -72,7 +73,7 @@
             width: 200px;
         }
 
-        .boldSpan {font-weight: bold;}
+        .boldSpan, #FinalStatusDocumentSpan {font-weight: bold;}
 
     </style>
     <script>
@@ -88,6 +89,7 @@
             else {
                 alert("text area element does not exist.")
                 docFinalStatus = false;
+                displayDocResult(docFinalStatus)
             }
         }
 
@@ -100,6 +102,7 @@
             else{
                 document.getElementById("docHasContentSpan").innerText = "FAIL"
                 docFinalStatus = false;
+                displayDocResult(docFinalStatus)
             }
         }
 
@@ -110,7 +113,8 @@
                 docSegmentCheck(docToCheck)
         } else {
             document.getElementById("docHasISA").textContent ="FAIL";
-            docFinalStatus = false;
+            docFinalStatus = false;    
+            displayDocResult(docFinalStatus)       
         }
     }
 
@@ -123,14 +127,15 @@
                      if (docToCheck.value.includes(segmentsRequired[i]) === true){
                                 segmentsFound[i] = 1    
                                 if (segmentsValid)
-                                document.getElementById("docHasSegmentTypes").innerText = "PASS";                    
+                                document.getElementById("docHasSegmentTypes").innerText = "PASS"                    
                             }
                             else{
                                 segmentsFound[i] = 0
                                 segmentsValid = false;
-                                document.getElementById("docHasSegmentTypes").innerText = "FAIL";
-                                // Even if only one segment type is missing then the document is invalid.
+                                document.getElementById("docHasSegmentTypes").innerText = "FAIL"
                                 docFinalStatus = false;
+                                displayDocResult(docFinalStatus)
+                                
                             }
             }
 
@@ -149,9 +154,19 @@
                 }
                 if (BEG && PO1){
                     document.getElementById("docHasBEGPO1").innerText = "PASS"
+                    displayDocResult(docFinalStatus)
                 }else{
                     document.getElementById("docHasBEGPO1").innerText = "FAIL"
                     docFinalStatus = false;
+                    displayDocResult(docFinalStatus)                    
+                }
+            }
+            function displayDocResult(docFinalStatus){
+                // Display Document status:Valid or Document status:Invalid on the browser page.
+                if(docFinalStatus === true){
+                    document.getElementById("FinalStatusDocumentSpan").innerText = "Valid"
+                } else {
+                    document.getElementById("FinalStatusDocumentSpan").innerText = "Invalid"
                 }
             }
             function resetValues(){
