@@ -14,7 +14,7 @@
         <label for="docToValidate">Paste the content to validate document:</label>
         <textarea id="docToValidate"></textarea>
         <button type="button" onclick="docValidate(docToCheck)">Validate</button>
-        <button type="reset">Reset</button>
+        <button type="button" onclick="resetValues()">Reset</button>
     </form>
     <h3>Document validation checks:</h3>
     <div id="visualChecks">
@@ -153,6 +153,10 @@
                     document.getElementById("docHasBEGPO1").innerText = "FAIL"
                     docFinalStatus = false;
                 }
+            }
+            function resetValues(){
+                //reset the values of all inputs by refresing the browser page.
+                window.location.reload()
             }   
 
     </script>
