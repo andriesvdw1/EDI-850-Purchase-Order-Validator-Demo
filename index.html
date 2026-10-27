@@ -88,12 +88,12 @@
             }
             else {
                 alert("text area element does not exist.")
-                docFinalStatus = false;
-                displayDocResult(docFinalStatus)
             }
         }
 
         function docValidate(docToCheck) {
+            // set document status to true each time validate button is clicked
+            docFinalStatus = true;
             if (docToCheck.value.length > 0) {
                 document.getElementById("docHasContentSpan").innerText = "PASS"
                 //continue with the next check
