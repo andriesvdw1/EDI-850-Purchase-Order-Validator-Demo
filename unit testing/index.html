@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDI 850 Purchase Order Validator Demo</title>
+</head>
+
+<body>
+    <h1>EDI 850 Purchase Order Validator Demo</h1>
+    <form>
+        <h2>Validate Purchase Order Document:</h2>
+        <label for="docToValidate">Paste the content to validate document:</label>
+        <textarea id="docToValidate"></textarea>
+        <button type="button" onclick="docValidate(docToCheck)">Validate</button>
+        <button type="button" onclick="resetValues()">Reset</button>
+    </form>
+    <h3>Document validation checks:</h3>
+    <div id="visualChecks">
+        <span id="docHasContent">Document has content?</span><span class="boldSpan" id="docHasContentSpan"></span>
+        <span id="docStartISA">Document starts with ISA?</span><span class="boldSpan" id="docHasISA"></span>
+        <span id="requiredSegmentTypes">Document has correct segment types as expected:</span>
+        <span id="segmentInOrder">ISA -> IEA -> GS ->GE ST-> SE?</span><span class="boldSpan" id="docHasSegmentTypes"></span>
+        <span id="850DocCheck">BEG with at least one P01 line item present?</span><span class="boldSpan" id="docHasBEGPO1"></span>
+        <span>Document Status: </span><span id="FinalStatusDocumentSpan"></span>
+        <span id="validateControlNumberPairs">Control number pairs match? N/A in demo</span>
+        <span id="segmentISALength">ISA segment length? N/A in demo</span>                
+        <span id="segmentGroupCounts">Segment group counts match?N/A in demo</span>
+        
+    </div>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 18pt;
+            background-color: darkseagreen;
+            border-radius: 18px;
+            padding: 15px;
+        }
+
+        h1 {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 22pt;
+            line-height: 0%;
+        }
+
+        h3,
+        h2 {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 20pt;
+            line-height: 0%;
+        }
+
+        #visualChecks {
+            display: flex;
+            flex-direction: column;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 18pt;
+            background-color: lightseagreen;
+            border-radius: 18px;
+            padding: 15px;
+
+        }
+
+        button {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16pt;
+            background-color: lightseagreen;
+            border-radius: 18px;
+            width: 200px;
+        }
+
+        .boldSpan, #FinalStatusDocumentSpan {font-weight: bold;}
+
+    </style>
+    <script>
+        let docToCheck = document.getElementById("docToValidate")
+        // The docFinalStatus variable keep the true value while the document is valid and will be set to false
+        // if any checks fail.
+        let docFinalStatus = true;
+        function docExists(){
+            
+            if (docToCheck){
+                docValidate(docToCheck)
+            }
+            else {
+                alert("text area element does not exist.")
+            }
+        }
+
+        function docValidate(docToCheck) {
+            // set document status to true each time validate button is clicked
+            docFinalStatus = true;
+            if (docToCheck.value.length > 0) {
+                document.getElementById("docHasContentSpan").innerText = "PASS"
+                //continue with the next check
+                docStartISA(docToCheck)
+            }
+            else{
+                document.getElementById("docHasContentSpan").innerText = "FAIL"
+                docFinalStatus = false;
+                displayDocResult(docFinalStatus)
+            }
+        }
+
+        function docStartISA(docToCheck){
+            if(docToCheck.value.substring(0,3) === "ISA"){
+                document.getElementById("docHasISA").textContent ="PASS";
+                //continue with the next check
+                docSegmentCheck(docToCheck)
+        } else {
+            document.getElementById("docHasISA").textContent ="FAIL";
+            docFinalStatus = false;    
+            displayDocResult(docFinalStatus)       
+        }
+    }
+
+        function docSegmentCheck(docToCheck){
+            let segmentsRequired = ["ISA*", "IEA*", "GS*", "GE*", "ST*", "SE*"]
+            let segmentsFound = [0, 0, 0, 0, 0, 0]
+            let segmentsValid = true;
+            for(let i = 0; i<=segmentsRequired.length - 1; i++)
+            {
+                     if (docToCheck.value.includes(segmentsRequired[i]) === true){
+                                segmentsFound[i] = 1    
+                                if (segmentsValid)
+                                document.getElementById("docHasSegmentTypes").innerText = "PASS"                    
+                            }
+                            else{
+                                segmentsFound[i] = 0
+                                segmentsValid = false;
+                                document.getElementById("docHasSegmentTypes").innerText = "FAIL"
+                                docFinalStatus = false;
+                                displayDocResult(docFinalStatus)
+                                
+                            }
+            }
+
+            // Check BEG with at least one PO1 present
+            docBEGandPO1(docToCheck)  
+            
+        }
+            function docBEGandPO1(docToCheck){
+                let BEG = false
+                let PO1 = false
+                if (docToCheck.value.includes("BEG")){
+                    BEG = true
+                }
+                if (docToCheck.value.includes("PO1")){
+                    PO1 = true
+                }
+                if (BEG && PO1){
+                    document.getElementById("docHasBEGPO1").innerText = "PASS"
+                    displayDocResult(docFinalStatus)
+                }else{
+                    document.getElementById("docHasBEGPO1").innerText = "FAIL"
+                    docFinalStatus = false;
+                    displayDocResult(docFinalStatus)                    
+                }
+            }
+            function displayDocResult(docFinalStatus){
+                // Display Document status:Valid or Document status:Invalid on the browser page.
+                if(docFinalStatus === true){
+                    document.getElementById("FinalStatusDocumentSpan").innerText = "Valid"
+                } else {
+                    document.getElementById("FinalStatusDocumentSpan").innerText = "Invalid"
+                }
+            }
+            function resetValues(){
+                //reset the values of all inputs by refresing the browser page.
+                window.location.reload()
+            }   
+
+    </script>
+</body>
+
+</html>
