@@ -21,13 +21,15 @@ JavaScript code with HTML5 and CSS3 to enable the frontend to execute in a brows
 6) Every segment type (ISA, GS, ST, BEG, etc.) has an acceptable number of elements as defined by the X12 standard.
 7) Check that the segments appear in the document or text in the order: ISA -> IEA -> GS ->GE ST-> SE.
 8) Check which element separator is used. Store the character directly following "ISA" as the delimiter.
-9) Specific check for the 850 document: A BEG and one or more P01 item are present.
+9) Specific check for the 850 document: A BEG and one or more P01 item/s are present.
+
 
 ## Working on:
-10) Check the length of the ISA segment to match exactly to 106 characters in length with the segment terminator included.
-11) Split the file on the segment terminator and then split each segment on the element separator.
-12) Validate every control number pairing: ISA13 should equal IEA02. GS06 should equal GE02. ST02 should equal SE02. Any mismatch means a corrupted, invalid or user-edited file to reject.
-13) Validate the segment and group counts: e.g. Se01 equals the exact number of segments from ST through SE inclusive.
+10) Identify the segment terminator which should be at the end of every line. Will check the last character of the document provided.
+11) Check the length of the ISA segment to match exactly to 106 characters in length with the segment terminator included.
+12) Split the file on the segment terminator and then split each segment on the element separator.
+13) Validate every control number pairing: ISA13 should equal IEA02. GS06 should equal GE02. ST02 should equal SE02. Any mismatch means a corrupted, invalid or user-edited file to reject.
+14) Validate the segment and group counts: e.g. Se01 equals the exact number of segments from ST through SE inclusive.
 
 
 # The initial purchase order document content for testing the program:
