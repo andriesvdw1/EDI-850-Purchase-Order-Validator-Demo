@@ -4,6 +4,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { text } = require('stream/consumers');
 
 // Load the HTML index file into JSDOM before running the tests
 const html = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf8');
@@ -31,6 +32,17 @@ describe('EDI 850 Purchase Order Validation Tests', () => {
 
         expect(document.getElementById('docHasContentSpan').innerText).toBe('FAIL');
         expect(document.getElementById('FinalStatusDocumentSpan').innerText).toBe('Invalid');
+    });
+
+    test('2. Should FAIL when document does not start with ISA characters', () => {
+        const textarea = document.getElementById('docToValidate');
+        textarea.value = 'GS*00*...';
+
+        window.docValidate(textarea);
+
+        expect(document.getElementById('docHasContentSpan').innerText).tobe('PASS');
+        expect(document.getElementById('docHasISA').innerText).tobe('FAIL');
+        expect(document.getElementById('FinalStatusDocumentSpan').innerText).tobe('Invalid');
     });
 
 
