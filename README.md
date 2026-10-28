@@ -31,8 +31,28 @@ JavaScript code with HTML5 and CSS3 to enable the frontend to execute in a brows
 13) Validate every control number pairing: ISA13 should equal IEA02. GS06 should equal GE02. ST02 should equal SE02. Any mismatch means a corrupted, invalid or user-edited file to reject.
 14) Validate the segment and group counts: e.g. Se01 equals the exact number of segments from ST through SE inclusive.
 
+# Unit test results:
+```
+ npm test
 
-# The initial purchase order document content for testing the program:
+> unit-testing@1.0.0 test
+> jest
+
+ PASS  ./index.test.js
+  EDI 850 Purchase Order Validation Tests
+    √ 1. Should FAIL when document is empty (26 ms)
+    √ 2. Should FAIL when document does not start with ISA characters (8 ms)
+    √ 3. Should PASS when a valid fake EDI 850 document is provided (11 ms)
+    √ 4. Should FAIL if BEG or PO1 segments are missing (7 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       4 passed, 4 total
+Snapshots:   0 total
+Time:        0.84 s, estimated 1 s
+Ran all test suites.
+
+```
+# The initial purchase order document content for manual testing the program:
 ```
 ISA*00*          *00*          *ZZ*ABC_AEROSPACE  *ZZ*XYZ_AIRCRAFT   *000506*1234*U*00401*000000001*0*P*>~
 GS*PO*ABC_AEROSPACE*XYZ_AIRCRAFT*20000506*1234*1*X*004010~

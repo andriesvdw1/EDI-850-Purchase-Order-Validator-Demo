@@ -95,12 +95,12 @@
             // set document status to true each time validate button is clicked
             docFinalStatus = true;
             if (docToCheck.value.length > 0) {
-                document.getElementById("docHasContentSpan").innerText = "PASS"
+                document.getElementById("docHasContentSpan").textContent = "PASS"
                 //continue with the next check
                 docStartISA(docToCheck)
             }
             else{
-                document.getElementById("docHasContentSpan").innerText = "FAIL"
+                document.getElementById("docHasContentSpan").textContent = "FAIL"
                 docFinalStatus = false;
                 displayDocResult(docFinalStatus)
             }
@@ -127,12 +127,12 @@
                      if (docToCheck.value.includes(segmentsRequired[i]) === true){
                                 segmentsFound[i] = 1    
                                 if (segmentsValid)
-                                document.getElementById("docHasSegmentTypes").innerText = "PASS"                    
+                                document.getElementById("docHasSegmentTypes").textContent = "PASS"                    
                             }
                             else{
                                 segmentsFound[i] = 0
                                 segmentsValid = false;
-                                document.getElementById("docHasSegmentTypes").innerText = "FAIL"
+                                document.getElementById("docHasSegmentTypes").textContent = "FAIL"
                                 docFinalStatus = false;
                                 displayDocResult(docFinalStatus)
                                 
@@ -153,10 +153,10 @@
                     PO1 = true
                 }
                 if (BEG && PO1){
-                    document.getElementById("docHasBEGPO1").innerText = "PASS"
+                    document.getElementById("docHasBEGPO1").textContent = "PASS"
                     displayDocResult(docFinalStatus)
                 }else{
-                    document.getElementById("docHasBEGPO1").innerText = "FAIL"
+                    document.getElementById("docHasBEGPO1").textContent = "FAIL"
                     docFinalStatus = false;
                     displayDocResult(docFinalStatus)                    
                 }
@@ -164,9 +164,9 @@
             function displayDocResult(docFinalStatus){
                 // Display Document status:Valid or Document status:Invalid on the browser page.
                 if(docFinalStatus === true){
-                    document.getElementById("FinalStatusDocumentSpan").innerText = "Valid"
+                    document.getElementById("FinalStatusDocumentSpan").textContent = "Valid"
                 } else {
-                    document.getElementById("FinalStatusDocumentSpan").innerText = "Invalid"
+                    document.getElementById("FinalStatusDocumentSpan").textContent = "Invalid"
                 }
             }
             function resetValues(){
